@@ -1,0 +1,5 @@
+Methods TODO:
+1) Decode.isValid()       --- Status: unimplemented
+2) Decode.parseSequence() --- Status: implemented
+	* We must fully implement MDeque for this to work properly ^
+3) Decode.decode()        --- Status: unimplemented

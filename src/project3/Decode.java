@@ -90,7 +90,7 @@ public class Decode {
 			String [] splitSequence = sequence.split(", ");
 
 			for (int i = 0; i < splitSequence.length; i++ ) {
-				list.pushBack(Integer.parseInt( splitSequence[i]) );
+				//list.pushBack(Integer.parseInt( splitSequence[i]) );
 			}
 
 		}
