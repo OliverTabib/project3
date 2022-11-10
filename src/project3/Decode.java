@@ -18,7 +18,7 @@ import java.util.regex.PatternSyntaxException;
  * {@code [35, 1, 42, 189]}.
  *
  * @author Joanna Klukowska
- * @author ADD YOUR NAME HERE
+ * @author Oliver Tabibzadeh
  *
  */
 public class Decode {
@@ -72,9 +72,24 @@ public class Decode {
 	 * is either 'F' or 'B'
 	 */
 	public static void decode (MDeque<Integer> list , String instructions) throws NoSuchElementException {
+		String[] inst = instructions.split("");
 
-		// TODO: implement this method
-
+		for( String s : inst ) {
+			
+			if( s.equals("F") ) {
+				list.popFront();
+			}
+			else if( s.equals("B") ) {
+				list.popBack();
+			}
+			else if( s.equals("R") ) {
+				list.reverseIterator();
+			}
+			else if( list.size() == 0 && (s.equals("F") || s.equals("B")) ){
+				throw new NoSuchElementException("Cannot complete this operation "
+						+ "on empty list");
+			}
+		}
 	}
 
 	/**
@@ -90,7 +105,7 @@ public class Decode {
 			String [] splitSequence = sequence.split(", ");
 
 			for (int i = 0; i < splitSequence.length; i++ ) {
-				//list.pushBack(Integer.parseInt( splitSequence[i]) );
+				list.pushBack(Integer.parseInt( splitSequence[i]) );
 			}
 
 		}
@@ -112,10 +127,21 @@ public class Decode {
 	 * @return {@code true} if instructions are valid, {@code false} otherwise
 	 */
 	public static boolean isValid ( String instructions ) {
+		// Base Cases:
+		if( instructions == null )
+			return false;
+		if( instructions.length() == 0) {
+			return true;
+		}
 
-		// TODO: implement this method
-
-		return false;
+		// Doing Work:
+		else if( instructions.charAt(0) == 'F'
+				|| instructions.charAt(0) == 'B'
+				|| instructions.charAt(0) == 'R') {
+			return isValid(instructions.substring(1, instructions.length()) );
+		}
+		else
+			return false;
 	}
 
 }
