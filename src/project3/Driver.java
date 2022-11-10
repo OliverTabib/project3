@@ -5,7 +5,7 @@ public class Driver {
 		MDeque<Integer> d = new MDeque<Integer>();
 		int[] i = {1,2,3,4};
 		for(int x:i) {
-			d.pushBack(x);
+			d.pushFront(x);
 			
 		}
 		System.out.println(d.peekMiddle());

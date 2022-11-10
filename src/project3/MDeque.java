@@ -97,7 +97,9 @@ public class MDeque<E> {
 		}
 	}
 
-
+	/** MDeque() Constructor
+	 * Zero argument constructor to create an MDeque
+	 */
 	public MDeque(){
 
 	}
@@ -161,7 +163,6 @@ public class MDeque<E> {
 	 * @return Retrieves and removes the first element of this mdeque.
 	 */
 	public E popFront() {
-		E front = head.data;
 
 		if( size == 0 ) {
 			throw new IndexOutOfBoundsException( "List is size 0, can not pop" );		
@@ -169,6 +170,14 @@ public class MDeque<E> {
 
 		// Pop and return first element of mdeque
 		Node temp = head;
+
+		// If size is 1, reset the mdeque
+		if( size == 1 ) {
+			head = null;
+			tail = null;
+			return temp.data;
+		}
+
 		head = head.next;
 		head.prev = null;
 		size--;
@@ -209,11 +218,13 @@ public class MDeque<E> {
 			tail.prev = head;
 			size++;
 		}
-		Node oldTail = tail;
-		tail.next = n;
-		tail = n;
-		tail.prev = oldTail;
-		size++;
+		else {
+			Node oldTail = tail;
+			tail.next = n;
+			tail = n;
+			tail.prev = oldTail;
+			size++;
+		}
 
 		// Middle:
 		int mid = size/2;
@@ -231,7 +242,24 @@ public class MDeque<E> {
 	 * @param Inserts the specified item at the front of this mdeque.
 	 */
 	public void pushFront(E item) {
-		// TODO: implement this method
+		Node n = new Node(item);
+		n.next = head;
+		n.prev = null;
+		if(head != null)
+			head.prev = n;
+		head = n;
+		size++;
+		
+		// Middle:
+		int mid = size/2;
+		Node temp = head;
+		while(mid != 0) {
+			temp = temp.next;
+			mid--;
+		}
+		middle = temp;
+		middle.next = temp.next;
+		middle.prev = temp.prev;
 	}
 
 	/** pushMiddle(E item)
@@ -245,7 +273,7 @@ public class MDeque<E> {
 	 * @return Returns an iterator over the elements in this mdeque in reverse sequential order.
 	 */
 	public Iterator<E> reverseIterator(){
-		 return new ReverseIterator();
+		return new ReverseIterator();
 	}
 
 	/** size()
@@ -262,7 +290,7 @@ public class MDeque<E> {
 		StringBuilder SB = new StringBuilder();
 		Node h = head;
 		while( h != null ) {
-			SB.append(h.data);
+			SB.append(h.data + ", ");
 			h = h.next;
 		}	
 		return SB.toString(); // TODO: implement this method RECURSIVELY
